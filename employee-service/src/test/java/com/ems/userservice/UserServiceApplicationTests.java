@@ -40,8 +40,7 @@ class UserServiceApplicationTests {
 	@Autowired
 	private UserRepoInterface userRepository;
 
-//	private String EMPLOYEE_CSV_PATH = "<ABSOLUTE_PATH>/employee-management-system/employee-service/src/main/resources/uploads/employees-data.csv";
-	private String EMPLOYEE_CSV_PATH = "/Users/ankitarora/projects/employee-management-system/employee-service/src/main/resources/uploads/employees-data.csv";
+	private String EMPLOYEE_CSV_PATH = "<ABSOLUTE_PATH>/employee-management-system/employee-service/src/main/resources/uploads/employees-data.csv";
 	//	eg: "/Users/ankitarora/projects/employee-management-system/employee-service/src/main/resources/uploads/employees-data.csv";
 
 	@Test
