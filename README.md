@@ -42,8 +42,6 @@
   - invalid-salary-employees-data.csv
   - invalid-login-employees-data.csv
   - invalid-employee-id-employees-data.csv
-
-  - API Local Testing Reference.pdf (you can find this PDF in root directory)
   
 ### Suggestions 
   - We can use spring boot batch processing dependency to handle large data set & keep that service deployed on different server as it might take more CPU & memory while handling large data sets (https://spring.io/guides/gs/batch-processing/)
