@@ -2,7 +2,9 @@ package com.ems.userservice.utils;
 
 import com.ems.userservice.dto.UserDTO;
 import com.ems.userservice.exceptions.InvalidDateParseException;
+import com.ems.userservice.exceptions.InvalidNumberFormatException;
 import com.ems.userservice.model.User;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +15,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
 @Component
-public class DateTransformerUtility {
+public class DataTransformerUtility {
 
     public static User convertUserDTOtoUser(UserDTO userDTO, User user){
         transformStartDateField(userDTO, user);
@@ -22,6 +24,9 @@ public class DateTransformerUtility {
     }
 
     private static void transformSalaryField(UserDTO userDTO, User user) {
+         if(!NumberUtils.isCreatable(userDTO.getSalary()) || (Double.parseDouble(userDTO.getSalary()) <= 0)) {
+             throw new InvalidNumberFormatException(userDTO.getSalary());
+         }
         user.setSalary(Double.parseDouble(userDTO.getSalary()));
     }
 

@@ -2,6 +2,7 @@ package com.ems.userservice.service.implementations;
 
 import com.ems.userservice.constants.SortOrder;
 import com.ems.userservice.dto.UserDTO;
+import com.ems.userservice.exceptions.UniqueLoginException;
 import com.ems.userservice.exceptions.UserAlreadyExistsException;
 import com.ems.userservice.exceptions.UserNotFoundException;
 import com.ems.userservice.model.User;
@@ -9,7 +10,7 @@ import com.ems.userservice.repository.UserRepoInterface;
 import com.ems.userservice.response.SuccessResponseList;
 import com.ems.userservice.service.UserServiceInterface;
 import com.ems.userservice.specification.UserSpecification;
-import com.ems.userservice.utils.DateTransformerUtility;
+import com.ems.userservice.utils.DataTransformerUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -59,12 +60,14 @@ public class UserService implements UserServiceInterface {
     @Override
     public User save(UserDTO userDTO) {
 
-        // transform startDate format
-        User user = DateTransformerUtility.convertUserDTOtoUser(userDTO, new User());
+        User user = DataTransformerUtility.convertUserDTOtoUser(userDTO, new User());
 
         Optional<User> userOptional = userRepoInterface.findById(user.getId());
-        if (userOptional.isPresent())
+        if (userOptional.isPresent()) {
             throw new UserAlreadyExistsException(user.getId());
+        } else if (isNotAUniqueLogin(userDTO.getLogin(), userDTO.getId())){
+            throw new UniqueLoginException(user.getLogin());
+        }
         return userRepoInterface.save(user);
     }
     @Override
@@ -74,13 +77,16 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public User updateUser(String id, UserDTO userDTO) {
-        // transform startDate format
-        User user = DateTransformerUtility.convertUserDTOtoUser(userDTO, new User());
+
+        User user = DataTransformerUtility.convertUserDTOtoUser(userDTO, new User());
 
         Optional<User> userOptional = userRepoInterface.findById(id);
-        if (userOptional.isEmpty())
+        if (userOptional.isEmpty()) {
             throw new UserNotFoundException(id);
-
+        }
+        else if (isNotAUniqueLogin(userDTO.getLogin(), userDTO.getId())){
+            throw new UniqueLoginException(user.getLogin());
+        }
         user.setId(id);
         return userRepoInterface.save(user);
     }

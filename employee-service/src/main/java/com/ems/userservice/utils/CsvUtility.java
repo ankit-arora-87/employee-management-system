@@ -5,7 +5,6 @@ import com.ems.userservice.exceptions.InvalidNumberFormatException;
 import com.ems.userservice.exceptions.UniqueLoginException;
 import com.ems.userservice.exceptions.UserAlreadyExistsException;
 import com.ems.userservice.model.User;
-import com.ems.userservice.service.UserServiceInterface;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -28,8 +27,6 @@ public class CsvUtility {
 
     private static Map<String, String> usersToBeValidated;
 
-
-
     public static List<User> csvToList(String filePath) throws IOException {
 
             // parse CSV file to create a list of `User` objects
@@ -49,7 +46,7 @@ public class CsvUtility {
                 List<User> users = null;
                 if(!inValidUserRecords){
                     users = userDTOS.stream().filter(userDTO -> !userDTO.getId().contains("#")).map((userDTO) -> {
-                        User user = DateTransformerUtility.convertUserDTOtoUser(userDTO, new User());
+                        User user = DataTransformerUtility.convertUserDTOtoUser(userDTO, new User());
                         user.setActionBy("System");
                         user.setIsImported(1);
                         return user;

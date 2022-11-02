@@ -1,12 +1,10 @@
 package com.ems.userservice.response;
 
-import java.util.HashMap;
-
-public class SuccessResponseMessage {
+public class ServiceResponseMessage {
 
     private String message;
 
-    public SuccessResponseMessage(String message) {
+    public ServiceResponseMessage(String message) {
         this.message = message;
     }
 
