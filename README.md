@@ -34,6 +34,16 @@
     
 ### Local API testing reference screenshots
   - API Local Testing Reference.pdf (you can find this PDF in root directory)
+
+### Added all versions of CSV with valid and invalid use cases (you can find these CSV's in root directory)
+  - valid-employees-with-skip-data.csv
+  - valid-employees-data.csv
+  - invalid-start-date-employees-data.csv
+  - invalid-salary-employees-data.csv
+  - invalid-login-employees-data.csv
+  - invalid-employee-id-employees-data.csv
+
+  - API Local Testing Reference.pdf (you can find this PDF in root directory)
   
 ### Suggestions 
   - We can use spring boot batch processing dependency to handle large data set & keep that service deployed on different server as it might take more CPU & memory while handling large data sets (https://spring.io/guides/gs/batch-processing/)
