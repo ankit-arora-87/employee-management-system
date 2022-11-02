@@ -47,6 +47,15 @@ public class AppResponseExceptionEntityHandler extends ResponseEntityExceptionHa
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler({InvalidEmployeeIdException.class})
+    public final ResponseEntity<Object> handleInvalidEmployeeIdException(Exception ex, WebRequest request) {
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                ex.getMessage()
+        );
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler({UniqueLoginException.class})
     public final ResponseEntity<Object> handleUniqueLoginException(Exception ex, WebRequest request) {
 

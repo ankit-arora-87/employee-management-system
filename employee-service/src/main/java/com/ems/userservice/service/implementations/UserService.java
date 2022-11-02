@@ -2,6 +2,7 @@ package com.ems.userservice.service.implementations;
 
 import com.ems.userservice.constants.SortOrder;
 import com.ems.userservice.dto.UserDTO;
+import com.ems.userservice.exceptions.InvalidEmployeeIdException;
 import com.ems.userservice.exceptions.UniqueLoginException;
 import com.ems.userservice.exceptions.UserAlreadyExistsException;
 import com.ems.userservice.exceptions.UserNotFoundException;
@@ -78,6 +79,9 @@ public class UserService implements UserServiceInterface {
     @Override
     public User updateUser(String id, UserDTO userDTO) {
 
+        if(!id.equalsIgnoreCase(userDTO.getId())){
+            throw new InvalidEmployeeIdException(userDTO.getId() + " <> " + id);
+        }
         User user = DataTransformerUtility.convertUserDTOtoUser(userDTO, new User());
 
         Optional<User> userOptional = userRepoInterface.findById(id);
